@@ -1,0 +1,14 @@
+# depslib dependency file v1.0
+1732368168 source:/home/nada/Music/line Editor/main.c
+	<stdio.h>
+	<stdlib.h>
+	"day3.h"
+
+1731929734 /home/nada/Music/line Editor/day3.h
+	<termios.h>
+	<unistd.h>
+	<stdio.h>
+	<fcntl.h>
+	<stdlib.h>
+	<string.h>
+
