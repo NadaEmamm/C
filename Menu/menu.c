@@ -10,6 +10,8 @@
     #define SIZE 100
     #define n  110
     #define y 121
+    #define col 35
+    #define row 5
 
 
 
@@ -38,10 +40,9 @@ int main() {
  int j;
  int ch;
  int flag =1;
- int col = 30;
- int row =1;
+
  int currentPosition =1;
- Employee employeeData[SIZE] = {{"ahmed",50,30000}};
+ Employee employeeData[SIZE] = {0};
 
 
 
@@ -66,57 +67,67 @@ else if(currentPosition==5){
 }
    //==========================================================// in and out pages
      if(ch == ENTER && currentPosition==1){
+     printf("\a");
             clrscr();
             textbackground(BLUE);
             textcolor(WHITE);
-            gotoxy(col,row);
+            gotoxy(col,row-3);
             printf("New \n");
             resetBackgroundColor();
-            gotoxy(1,row+3);
+            gotoxy(1,row);
            insertData ( employeeData,100); // -------------------> inserting data
-                       getch();
+            getch();
+            printf("\a");
+
             while(getch()!= BACK){
             fflush(stdin);}
             }
 //==============================================================================//
 
+//DISPLAY
+
     if(ch==ENTER && currentPosition==2){ //----------------> Display
+         printf("\a");
             clrscr();
             textbackground(BLUE);
             textcolor(WHITE);
-             gotoxy(col,row);
+            gotoxy(col,row-3);
             printf("Display\n");
             resetBackgroundColor();
-             gotoxy(1,row+3);
             diplayData(employeeData,100);
             while(getch()!= BACK){fflush(stdin);}
             };
 
         //===================================================================//
     if(ch==ENTER && currentPosition==3){ //-----------------------> Modify
-            clrscr();
+          printf("\a");
+           clrscr();
             textbackground(BLUE);
             textcolor(WHITE);
-             gotoxy(col,row);
+            gotoxy(col,row-3);
             printf("Modify\n");
             resetBackgroundColor();
+                         gotoxy(1,row );
             modifyData(employeeData,100);
             while(getch()!= BACK){fflush(stdin);}
             };
         //=====================================================================//
                 if(ch==ENTER && currentPosition==4){ //---------------------> Delete
+            printf("\a");
             clrscr();
             textbackground(BLUE);
             textcolor(WHITE);
-             gotoxy(col,row);
+            gotoxy(col,row-3);
             printf("Delete\n");
             resetBackgroundColor();
+                         gotoxy(1,row);
             deleteData (employeeData,100);
             while(getch()!= BACK){fflush(stdin);}
             };
 
    if (ch==ENTER && currentPosition==5){ //-------------------------> Exit
-    return 0 ;
+             printf("\a");
+             return 0 ;
           }
 //=================================================// arrow section
         ch = getch();
@@ -127,17 +138,22 @@ else if(currentPosition==5){
         };
 
 if(ch==DOWN){
+printf("\a");
  currentPosition ++;
  if (currentPosition >5){
     currentPosition = 1;
  };
 
 }
- else if(ch==UP)
-  currentPosition --;
-   if (currentPosition <1){
+ else if(ch==UP){
+   currentPosition --;
+ printf("\a");
+
+    if (currentPosition <1){
    currentPosition =5;
  };
+ }
+
 };
  return 0;};
 
@@ -146,11 +162,10 @@ if(ch==DOWN){
 //DISPLAY
 
 		void blueDisplay(){
-		 int row = 1;
-            int col= 30;
+
             clrscr();
             gotoxy(col,row);
-            printf("New \n");
+            printf("New\n");
             textbackground(BLUE);
             textcolor(WHITE);
              gotoxy(col,row+3);
@@ -169,8 +184,6 @@ if(ch==DOWN){
 //NEW
 		void blueNew(){
 
-            int row = 1;
-            int col= 30;
             clrscr();
             textbackground(BLUE);
             textcolor(WHITE);
@@ -195,8 +208,7 @@ if(ch==DOWN){
 //Modify
 		void blueModify(){
 
-            int row = 1;
-            int col= 30;
+
             clrscr();
             gotoxy(col,row);
             printf("New \n");
@@ -221,8 +233,6 @@ if(ch==DOWN){
 //DElEte
 		void blueDelete(){
 
-            int row = 1;
-            int col= 30;
             clrscr();
 
             gotoxy(col,row);
@@ -247,8 +257,7 @@ if(ch==DOWN){
 
    // EXIT
         void blueExit(){
-        int row = 1;
-        int col= 30;
+
             clrscr();
             gotoxy(col,row);
             printf("New \n");
@@ -267,6 +276,10 @@ if(ch==DOWN){
            };
 
 //=====================================================//
+
+//INSERT DATA FUNCTION
+
+
 
  void insertData(Employee emp[],int empSize){
 
@@ -331,15 +344,27 @@ scanf("%d", &emp[i].salary);};
  //DISPLAY
 
 void diplayData(Employee emp[],int empSize){
+int k =0;
+     gotoxy(5,row);
 
+printf("================================================\n");
 
-printf("| ID |        Name        |    Salary   |\n");
+     gotoxy(5,row+1);
+
+printf("|  ID  |       Name        |       Salary      |\n");
+
+     gotoxy(5,row+2);
+
+printf("================================================\n");
+
 
 for(int i=0;i < empSize && emp[i].id != 0; i++){
-printf("=========================================\n");
-
-printf("|%d | %s             |   %d       |\n",emp[i].id,emp[i].name,emp[i].salary);
-
+        k++;
+   gotoxy(5,row+3+i+k);
+          k++;
+printf("| %d  |       %s        |     %d        |\n",emp[i].id,emp[i].name,emp[i].salary);
+     gotoxy(5,row+3+i+k);
+printf("================================================\n");
 
 
 };
@@ -348,17 +373,21 @@ return;
 
 //=====================================================//
 
+// MODIFY
+
 void modifyData(Employee emp[],int empSize){
 
 int identity;
 int valid =0;
+int j=0;
 printf("Please insert the ID :");
 scanf("%d",&identity);
-while(identity > empSize ||  getchar() != '\n'){ //----------------------> size and num validation
+
+while (identity != emp[j].id || identity > empSize ||  getchar() != '\n'){ //-------------------------------> id validation
 printf("not valid \n");
-printf("Please insert the ID :");
-scanf("%d",&identity);
-}
+printf("Please insert the correct ID :");
+scanf("%d",&identity);}
+
 //============================================================================// done
 
 
@@ -402,29 +431,32 @@ scanf("%d", &emp[i].salary);
 void deleteData(Employee emp[],int empSize){
 
 int identity;
-
+int j=0;
 printf("Please insert the ID :");
 scanf("%d",&identity);
 
-while(identity > empSize ||  getchar() != '\n'){ //----------------------> size and num validation
+while(identity > empSize ||  getchar() != '\n'|| identity != emp[j].id ){ //----------------------> size and num validation
 printf("not valid \n");
 printf("Please insert the ID :");
 scanf("%d",&identity);
 }
 
 for(int i=0; i < empSize ;i++){
-
+Employee arr[100]={0};
 if (emp[i].id==identity ){
- emp[i].name[i]='\0';
-    emp[i].id=0;
-   emp[i].salary=0;
+for(int j = i ; j< empSize;j++){
 
 
+emp[j].name[j]=emp[j].name[j];
+    emp[i].id= emp[j].id;
+emp[i].salary=emp[j].salary;
+}
+
+
+}
 printf("Employee with ID %d has been deleted.\n", identity);
-    return;
+    return ;
 
 }
-
 }
 
-}
