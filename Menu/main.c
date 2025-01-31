@@ -276,12 +276,6 @@ printf("\a");
 //=====================================================//
 
 //INSERT DATA FUNCTION
-
-#include <stdio.h>
-#include <string.h>
-#include <ctype.h>
-#include <stdlib.h>
-
 void insertData(Employee emp[], int empSize) {
     char ch;
     int size;
@@ -289,13 +283,12 @@ void insertData(Employee emp[], int empSize) {
     printf("Please enter the number of inserted employees: ");
     while (scanf("%d", &size) != 1 || size <= 0 || size > empSize) {
         printf("Error: not valid. Please enter a number between 1 and %d: ", empSize);
-        while (getchar() != '\n'); // للتخلص من أي مدخلات غير صالحة (مثل الحروف)
+        while (getchar() != '\n'); 
     }
 
     for (int i = 0; i < size; i++) {
         int valid = 0;
 
-        // إدخال الاسم والتحقق منه
         while (valid == 0) {
             printf("Please enter a valid name for the employee: ");
             scanf("%s", emp[i].name);
@@ -311,7 +304,6 @@ void insertData(Employee emp[], int empSize) {
             }
         }
 
-        // إدخال ID والتحقق منه
         char id_input[100];
         printf("Please insert the ID: ");
 
