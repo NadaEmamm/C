@@ -1,6 +1,8 @@
 
     #include <stdio.h>
     #include <stdlib.h>
+    #include <string.h>
+#include <ctype.h>
     #include "day3.h"
     #define UP 65
     #define DOWN 66
@@ -12,6 +14,7 @@
     #define y 121
     #define col 35
     #define row 5
+
 
 
 
@@ -69,8 +72,7 @@ else if(currentPosition==5){
      if(ch == ENTER && currentPosition==1){
      printf("\a");
             clrscr();
-            textbackground(BLUE);
-            textcolor(WHITE);
+            textcolor(GREEN);
             gotoxy(col,row-3);
             printf("New \n");
             resetBackgroundColor();
@@ -89,8 +91,7 @@ else if(currentPosition==5){
     if(ch==ENTER && currentPosition==2){ //----------------> Display
          printf("\a");
             clrscr();
-            textbackground(BLUE);
-            textcolor(WHITE);
+            textcolor(GREEN);
             gotoxy(col,row-3);
             printf("Display\n");
             resetBackgroundColor();
@@ -102,8 +103,7 @@ else if(currentPosition==5){
     if(ch==ENTER && currentPosition==3){ //-----------------------> Modify
           printf("\a");
            clrscr();
-            textbackground(BLUE);
-            textcolor(WHITE);
+            textcolor(GREEN);
             gotoxy(col,row-3);
             printf("Modify\n");
             resetBackgroundColor();
@@ -115,8 +115,7 @@ else if(currentPosition==5){
                 if(ch==ENTER && currentPosition==4){ //---------------------> Delete
             printf("\a");
             clrscr();
-            textbackground(BLUE);
-            textcolor(WHITE);
+                textcolor(GREEN);
             gotoxy(col,row-3);
             printf("Delete\n");
             resetBackgroundColor();
@@ -165,17 +164,21 @@ printf("\a");
 
             clrscr();
             gotoxy(col,row);
+
             printf("New\n");
-            textbackground(BLUE);
-            textcolor(WHITE);
+            textcolor(GREEN);
              gotoxy(col,row+3);
+
             printf("Display\n");
             resetBackgroundColor();
              gotoxy(col,row +6);
+
             printf("Modify\n");
-              gotoxy(col,row +9);
+            gotoxy(col,row +9);
+
             printf("Delete\n");
-              gotoxy(col,row +12);
+            gotoxy(col,row +12);
+
             printf("Exit\n");
 
            }
@@ -185,8 +188,7 @@ printf("\a");
 		void blueNew(){
 
             clrscr();
-            textbackground(BLUE);
-            textcolor(WHITE);
+            textcolor(GREEN);
             gotoxy(col,row);
             printf("New \n");
             resetBackgroundColor();
@@ -215,9 +217,8 @@ printf("\a");
             resetBackgroundColor();
             gotoxy(col,row+3);
             printf("Display\n");
-               textbackground(BLUE);
-            textcolor(WHITE);
-               gotoxy(col,row +6);
+            textcolor(GREEN);
+            gotoxy(col,row +6);
             printf("Modify\n");
             resetBackgroundColor();
             gotoxy(col,row +9);
@@ -240,10 +241,9 @@ printf("\a");
             resetBackgroundColor();
             gotoxy(col,row+3);
             printf("Display\n");
-               gotoxy(col,row +6);
+            gotoxy(col,row +6);
             printf("Modify\n");
-            textbackground(BLUE);
-            textcolor(WHITE);
+            textcolor(GREEN);
             gotoxy(col,row +9);
             printf("Delete\n");
             resetBackgroundColor();
@@ -261,16 +261,14 @@ printf("\a");
             clrscr();
             gotoxy(col,row);
             printf("New \n");
-             gotoxy(col,row+3);
+            gotoxy(col,row+3);
             printf("Display\n");
-
             gotoxy(col,row +6);
             printf("Modify\n");
-              gotoxy(col,row +9);
+            gotoxy(col,row +9);
             printf("Delete\n");
-           textbackground(BLUE);
-            textcolor(WHITE);
-             gotoxy(col,row +12);
+            textcolor(GREEN);
+            gotoxy(col,row +12);
             printf("Exit\n");
             resetBackgroundColor();
            };
@@ -279,65 +277,115 @@ printf("\a");
 
 //INSERT DATA FUNCTION
 
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+#include <stdlib.h>
 
+void insertData(Employee emp[], int empSize) {
+    char ch;
+    int size;
 
- void insertData(Employee emp[],int empSize){
-
-char ch;
-int size;
-int j=0;
-printf("Please enter the number of inserted employee ");
-scanf("%d", &size);
-while(size > empSize &&  getchar() != '\n'){ //----------------------> size and num validation
-printf("not valid \n");
-printf("Please enter the number of inserted employee ");
-scanf("%d",&size);
-}
-
-for(int i=0; i<size;i++){
-ch =0;
- int valid = 0;
-            while (valid == 0) {
-        printf("Please enter a valid name for the employee: ");
-        scanf("%s", emp[i].name);
-        valid = 1;
-            for (int k = 0; emp[i].name[k] != '\0'; k++) {
-            if (!isalpha(emp[i].name[k])) {
-                valid = 0;
-
-    break;
-}}}
-printf("Please insert the ID :");
-scanf("%d",&emp[i].id);
-while(getchar() != '\n'){ //----------------------> size and num validation
-printf("not valid \n");
-printf("Please insert the ID :");
-scanf("%d",&emp[i].id);
-}
-//----------------------------------------------------------------//
-printf("Please enter the salary of the employee: ");
-scanf("%d", &emp[i].salary);
-while( getchar() != '\n'){ //----------------------> num validation
-printf("not valid \n");
-printf("Please enter the salary of the employee: ");
-scanf("%d", &emp[i].salary);};
-
-//-------------------------------------------------------------//
-  while (valid == 1) {
-        printf("Enter 'y' to continue or 'n' to exit: ");
-        ch = getchar();
-        while (getchar() != '\n');
-        if (ch == 'y' || ch == 'Y') {
-            printf("You chose to continue.\n");
-            valid = 0;
-        } else if (ch == 'n' || ch == 'N') {
-            printf("Exit\n");
-            return;
-        }
+    printf("Please enter the number of inserted employees: ");
+    while (scanf("%d", &size) != 1 || size <= 0 || size > empSize) {
+        printf("Error: not valid. Please enter a number between 1 and %d: ", empSize);
+        while (getchar() != '\n'); // للتخلص من أي مدخلات غير صالحة (مثل الحروف)
     }
 
-} return;
+    for (int i = 0; i < size; i++) {
+        int valid = 0;
+
+        // إدخال الاسم والتحقق منه
+        while (valid == 0) {
+            printf("Please enter a valid name for the employee: ");
+            scanf("%s", emp[i].name);
+            valid = 1;
+            for (int k = 0; emp[i].name[k] != '\0'; k++) {
+                if (!isalpha(emp[i].name[k])) {
+                    valid = 0;
+                    break;
+                }
+            }
+            if (valid == 0) {
+                printf("Name must contain only alphabetic characters. Try again.\n");
+            }
+        }
+
+        // إدخال ID والتحقق منه
+        char id_input[100];
+        printf("Please insert the ID: ");
+
+        getchar();
+
+        while (1) {
+            fgets(id_input, sizeof(id_input), stdin);
+
+            int valid_id = 1;
+            for (int j = 0; id_input[j] != '\0'; j++) {
+                if (id_input[j] == '\n') {
+                    id_input[j] = '\0';
+                    break;
+                }
+                if (!isdigit(id_input[j])) {
+                    valid_id = 0;
+                    break;
+                }
+            }
+
+            if (valid_id) {
+                emp[i].id = atoi(id_input);
+                break;
+            } else {
+                printf("Error: not valid. Please insert a valid ID (only numbers): ");
+            }
+        }
+
+        char salary_input[100];
+        printf("Please enter the salary of the employee: ");
+
+        while (1) {
+            fgets(salary_input, sizeof(salary_input), stdin);
+            int valid_salary = 1;
+            for (int j = 0; salary_input[j] != '\0'; j++) {
+                if (salary_input[j] == '\n') {
+                    salary_input[j] = '\0';
+                    break;
+                }
+                if (!isdigit(salary_input[j])) {
+                    valid_salary = 0;
+                    break;
+                }
+            }
+
+            if (valid_salary) {
+                emp[i].salary = atoi(salary_input);
+                break;
+            } else {
+                printf("Error: not valid. Please enter a valid salary (only numbers): ");
+            }
+        }
+
+        while (1) {
+            printf("Enter 'y' to continue or 'n' to exit: ");
+            ch = getchar();
+            while (getchar() != '\n');
+            if (ch == 'y' || ch == 'Y') {
+                printf("You chose to continue.\n");
+                break;
+            } else if (ch == 'n' || ch == 'N') {
+                printf("Exiting.\n");
+                return;
+            } else {
+                printf("Invalid input. Please enter 'y' or 'n'.\n");
+            }
+        }
+    }
 }
+
+
+
+
+
 
  //=======================================================//
 
@@ -375,54 +423,69 @@ return;
 
 // MODIFY
 
-void modifyData(Employee emp[],int empSize){
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
 
-int identity;
-int valid =0;
-int j=0;
-printf("Please insert the ID :");
-scanf("%d",&identity);
+void modifyData(Employee emp[], int empSize) {
+    int identity;
+    int valid = 0;
 
-while (identity != emp[j].id || identity > empSize ||  getchar() != '\n'){ //-------------------------------> id validation
-printf("not valid \n");
-printf("Please insert the correct ID :");
-scanf("%d",&identity);}
+    printf("Please insert the ID :");
+    scanf("%d", &identity);
 
-//============================================================================// done
+    while (identity <= 0 || identity > empSize) {
+        textcolor(RED);
+        printf("Error: not valid ID\n");
+        resetBackgroundColor();
+        printf("Please insert a valid ID: ");
+        scanf("%d", &identity);
+    }
 
+    int employeeIndex = -1;
+    for (int i = 0; i < empSize; i++) {
+        if (emp[i].id == identity) {
+            employeeIndex = i;
+            break;
+        }
+    }
 
-for(int i=0; i < empSize ;i++){ //--------------------------------------->  validation of letters
+    if (employeeIndex == -1) {
+        textcolor(RED);
+        printf("Error: Employee with ID %d not found.\n", identity);
+        resetBackgroundColor();
+        return;
+    }
 
-if (emp[i].id==identity){
+    printf("The ID of the employee is %d\n", emp[employeeIndex].id);
 
-printf("the ID of the employee is %d \n",emp[i].id);
-            int valid = 0;
-            while (valid == 0) {
-                printf("Please enter the name of the employee: ");
-                scanf("%s", emp[i].name);
-                valid = 1;
-                for (int k = 0; emp[i].name[k] != '\0'; k++) {
-                    if (!isalpha(emp[i].name[k])) {
-                        valid = 0;
-                        break;
-}
-}
+    valid = 0;
+    while (valid == 0) {
+        printf("Please enter the name of the employee: ");
+        scanf("%s", emp[employeeIndex].name);
+        valid = 1;
+        for (int k = 0; emp[employeeIndex].name[k] != '\0'; k++) {
+            if (!isalpha(emp[employeeIndex].name[k])) {
+                valid = 0;
+                break;
+            }
+        }
+        if (valid == 0) {
+            printf("Name must contain only alphabetic characters. Try again.\n");
+        }
+    }
+    printf("Please enter the salary of the employee: ");
+    while (scanf("%d", &emp[employeeIndex].salary) != 1 || emp[employeeIndex].salary <= 0) {
+        textcolor(RED);
+        printf("Error: not valid salary.\n");
+        resetBackgroundColor();
+        printf("Please enter a valid salary (positive number): ");
+        while (getchar() != '\n');
+    }
 
-}
-printf("Please enter the salary of the employee: ");
-scanf("%d", &emp[i].salary);
-
-
-while( getchar() != '\n'){ //----------------------> num validation
-printf("Please enter the salary of the employee: ");
-scanf("%d", &emp[i].salary);
-}
-}
-
-
-   }
     printf("Employee data updated successfully.\n");
 }
+
 
 //=======================================================//
 
@@ -436,26 +499,21 @@ printf("Please insert the ID :");
 scanf("%d",&identity);
 
 while(identity > empSize ||  getchar() != '\n'|| identity != emp[j].id ){ //----------------------> size and num validation
-printf("not valid \n");
+textcolor(RED);
+printf("Error:not valid \n");
+resetBackgroundColor();
 printf("Please insert the ID :");
 scanf("%d",&identity);
 }
-
 for(int i=0; i < empSize ;i++){
-Employee arr[100]={0};
 if (emp[i].id==identity ){
-for(int j = i ; j< empSize;j++){
-
-
-emp[j].name[j]=emp[j].name[j];
-    emp[i].id= emp[j].id;
-emp[i].salary=emp[j].salary;
+for(int j = i ; j< empSize-1;j++){
+ emp[j] = emp[j + 1];
 }
-
-
-}
+ emp[empSize - 1] = (Employee){0};
 printf("Employee with ID %d has been deleted.\n", identity);
     return ;
+}
 
 }
 }
