@@ -414,10 +414,7 @@ return;
 //=====================================================//
 
 // MODIFY
-
-#include <stdio.h>
-#include <string.h>
-#include <ctype.h>
+]
 
 void modifyData(Employee emp[], int empSize) {
     int identity;
